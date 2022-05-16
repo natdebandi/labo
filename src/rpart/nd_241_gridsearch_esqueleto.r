@@ -29,7 +29,7 @@ ArbolEstimarGanancia  <- function( semilla, param_basicos )
 {
   #particiono estratificadamente el dataset
   particionar( dataset, division=c(70,30), agrupa="clase_ternaria", seed= semilla )  #Cambiar por la primer semilla de cada uno !
-
+  print("particion")
   #genero el modelo
   modelo  <- rpart("clase_ternaria ~ .",     #quiero predecir clase_ternaria a partir del resto
                    data= dataset[ fold==1],  #fold==1  es training,  el 70% de los datos
@@ -54,6 +54,9 @@ ArbolEstimarGanancia  <- function( semilla, param_basicos )
   #escalo la ganancia como si fuera todo el dataset
   ganancia_test_normalizada  <-  ganancia_test / 0.3
 
+  print("ganancia_test_normalizada")
+  print(ganancia_test_normalizada)
+  
   return( ganancia_test_normalizada )
 }
 #------------------------------------------------------------------------------
@@ -68,14 +71,19 @@ ArbolesMontecarlo  <- function( semillas, param_basicos )
                           mc.cores= 1 )  #se puede subir a 5 si posee Linux o Mac OS
 
   ganancia_promedio  <- mean( unlist(ganancias) )
-
+  print("ganancias")
+  print(ganancias)
+  print("ganancia promedio")
+  print(ganancia_promedio)
   return( ganancia_promedio )
 }
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
-setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\")   
+#setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
+#setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\")   
+
+setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
 
 #cargo los datos
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
@@ -98,15 +106,11 @@ cat( file=archivo_salida,
      "ganancia_promedio", "\n")
 
 
-#itero por los loops anidados para cada hiperparametro
+#PRUEBO PRIMERO CON PARAMETROS FIJOS
 
-
-for( vmax_depth  in  c( 4 )  )
-{
-for( vmin_bucket  in  c( 400 )  )
-{
-for( vmin_split  in  c( 200)  )
-{
+vmax_depth<-3
+vmin_bucket<-300
+vmin_split <-200
 
   #notar como se agrega
   param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
@@ -114,6 +118,7 @@ for( vmin_split  in  c( 200)  )
                           "minbucket"=  vmin_bucket, #minima cantidad de registros en una hoja
                           "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
 
+  
   #Un solo llamado, con la semilla 17
   ganancia_promedio  <- ArbolesMontecarlo( ksemillas,  param_basicos )
 
@@ -126,10 +131,8 @@ for( vmin_split  in  c( 200)  )
         vmin_bucket, "\t",
         ganancia_promedio, "\n"  )
 
-}
-}
-}
 
+##aca abajo se uso para iterar por estos valores
 
 for( vmax_depth  in  c( 4, 6, 8, 10, 12, 14 )  )
 {
@@ -158,3 +161,37 @@ for( vmax_depth  in  c( 4, 6, 8, 10, 12, 14 )  )
     }
   }
 }
+
+
+##voy a dejar fijo vmax_depth en 6 que fue el que por lejos dio mejor
+##voy a hacer un ciclo de los valores de vmin_split entre 800 y 900
+##y voy a iterar de vmin_bucket entre 200 y 400
+  
+vmax_depth<-6
+archivo_salida  <- "./labo/exp/HT2020/gridsearch3.txt"
+for( vmin_split  in  c(  800, 820, 840, 860, 880, 900 )  )
+{
+    for( vmin_bucket  in  c( 200, 250, 300, 350, 400 )  )
+    {
+      
+        #notar como se agrega
+        param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
+                                "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
+                                "minbucket"=  vmin_bucket, #minima cantidad de registros en una hoja
+                                "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
+        
+        #Un solo llamado, con la semilla 17
+        ganancia_promedio  <- ArbolesMontecarlo( ksemillas,  param_basicos )
+        
+        #escribo los resultados al archivo de salida
+        cat(  file=archivo_salida,
+              append= TRUE,
+              sep= "",
+              vmax_depth, "\t",
+              vmin_split, "\t",
+              ganancia_promedio, "\n"  )
+        
+      }
+    }
+  
+  
