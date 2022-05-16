@@ -29,8 +29,8 @@ ArbolEstimarGanancia  <- function( semilla, param_basicos )
 {
   #particiono estratificadamente el dataset
   particionar( dataset, division=c(70,30), agrupa="clase_ternaria", seed= semilla )  #Cambiar por la primer semilla de cada uno !
-  print("particion")
-  #genero el modelo
+ 
+   #genero el modelo
   modelo  <- rpart("clase_ternaria ~ .",     #quiero predecir clase_ternaria a partir del resto
                    data= dataset[ fold==1],  #fold==1  es training,  el 70% de los datos
                    xval= 0,
@@ -54,10 +54,11 @@ ArbolEstimarGanancia  <- function( semilla, param_basicos )
   #escalo la ganancia como si fuera todo el dataset
   ganancia_test_normalizada  <-  ganancia_test / 0.3
 
-  print("ganancia_test_normalizada")
-  print(ganancia_test_normalizada)
-  
-  return( ganancia_test_normalizada )
+   print("param_basicos")
+   print(param_basicos)
+   print("ganancia")
+   print(ganancia_test_normalizada)
+   return( ganancia_test_normalizada )
 }
 #------------------------------------------------------------------------------
 
@@ -71,10 +72,6 @@ ArbolesMontecarlo  <- function( semillas, param_basicos )
                           mc.cores= 1 )  #se puede subir a 5 si posee Linux o Mac OS
 
   ganancia_promedio  <- mean( unlist(ganancias) )
-  print("ganancias")
-  print(ganancias)
-  print("ganancia promedio")
-  print(ganancia_promedio)
   return( ganancia_promedio )
 }
 #------------------------------------------------------------------------------
@@ -94,7 +91,7 @@ dataset  <- fread("./datasets/paquete_premium_202011.csv")
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/HT2020/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/HT2020/gridsearch2.txt"
+archivo_salida  <- "./labo/exp/HT2020/gridsearch4.txt"
 
 #Escribo los titulos al archivo donde van a quedar los resultados
 #atencion que si ya existe el archivo, esta instruccion LO SOBREESCRIBE, y lo que estaba antes se pierde
@@ -103,6 +100,7 @@ cat( file=archivo_salida,
      sep= "",
      "max_depth", "\t",
      "min_split", "\t",
+     "vmin_bucket", "\t",
      "ganancia_promedio", "\n")
 
 
@@ -156,6 +154,7 @@ for( vmax_depth  in  c( 4, 6, 8, 10, 12, 14 )  )
             sep= "",
             vmax_depth, "\t",
             vmin_split, "\t",
+            vmin_bucket, "\t",
             ganancia_promedio, "\n"  )
       
     }
@@ -189,6 +188,7 @@ for( vmin_split  in  c(  800, 820, 840, 860, 880, 900 )  )
               sep= "",
               vmax_depth, "\t",
               vmin_split, "\t",
+              vmin_bucket, "\t",
               ganancia_promedio, "\n"  )
         
       }
