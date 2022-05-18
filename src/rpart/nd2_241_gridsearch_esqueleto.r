@@ -91,7 +91,7 @@ dataset  <- fread("./datasets/paquete_premium_202011.csv")
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/HT2020/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/HT2020/gridsearch4.txt"
+archivo_salida  <- "./labo/exp/HT2020/testcp_002.txt"
 
 #Escribo los titulos al archivo donde van a quedar los resultados
 #atencion que si ya existe el archivo, esta instruccion LO SOBREESCRIBE, y lo que estaba antes se pierde
@@ -106,12 +106,12 @@ cat( file=archivo_salida,
 
 #PRUEBO PRIMERO CON PARAMETROS FIJOS
 
-vmax_depth<-3
-vmin_bucket<-300
-vmin_split <-200
+vmax_depth<-6
+vmin_bucket<-800
+vmin_split <-300
 
   #notar como se agrega
-  param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
+  param_basicos  <- list( "cp"=         -0.3,       #complejidad minima
                           "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
                           "minbucket"=  vmin_bucket, #minima cantidad de registros en una hoja
                           "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
@@ -125,73 +125,9 @@ vmin_split <-200
         append= TRUE,
         sep= "",
         vmax_depth, "\t",
-        vmin_split, "\t",
         vmin_bucket, "\t",
+        vmin_split, "\t",
         ganancia_promedio, "\n"  )
 
-
-##aca abajo se uso para iterar por estos valores
-
-for( vmax_depth  in  c( 4, 6, 8, 10, 12, 14 )  )
-{
-  for( vmin_bucket  in  c( 400, 200, 100, 50, 20, 10 )  )
-  {
-    for( vmin_split  in  c( 1000, 800, 600, 400, 200, 100, 50, 20, 10 )  )
-    {
-      
-      #notar como se agrega
-      param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
-                              "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
-                              "minbucket"=  vmin_bucket, #minima cantidad de registros en una hoja
-                              "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
-      
-      #Un solo llamado, con la semilla 17
-      ganancia_promedio  <- ArbolesMontecarlo( ksemillas,  param_basicos )
-      
-      #escribo los resultados al archivo de salida
-      cat(  file=archivo_salida,
-            append= TRUE,
-            sep= "",
-            vmax_depth, "\t",
-            vmin_split, "\t",
-            vmin_bucket, "\t",
-            ganancia_promedio, "\n"  )
-      
-    }
-  }
-}
-
-
-##voy a dejar fijo vmax_depth en 6 que fue el que por lejos dio mejor
-##voy a hacer un ciclo de los valores de vmin_split entre 800 y 900
-##y voy a iterar de vmin_bucket entre 200 y 400
-  
-vmax_depth<-6
-#archivo_salida  <- "./labo/exp/HT2020/gridsearch3.txt"
-for( vmin_split  in  c(  800, 820, 840, 860, 880, 900 )  )
-{
-    for( vmin_bucket  in  c( 200, 250, 300, 350, 400 )  )
-    {
-      
-        #notar como se agrega
-        param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
-                                "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
-                                "minbucket"=  vmin_bucket, #minima cantidad de registros en una hoja
-                                "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
-        
-        #Un solo llamado, con la semilla 17
-        ganancia_promedio  <- ArbolesMontecarlo( ksemillas,  param_basicos )
-        
-        #escribo los resultados al archivo de salida
-        cat(  file=archivo_salida,
-              append= TRUE,
-              sep= "",
-              vmax_depth, "\t",
-              vmin_split, "\t",
-              vmin_bucket, "\t",
-              ganancia_promedio, "\n"  )
-        
-      }
-    }
   
   
