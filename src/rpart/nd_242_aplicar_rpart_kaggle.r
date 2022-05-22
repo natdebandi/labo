@@ -8,10 +8,10 @@ require("rpart.plot")
 
 #Aqui debe cambiar los parametros por los que desea probar
 
-param_basicos  <- list( "cp"=          -0.4,  #complejidad minima
-                        "minsplit"=   800,     #minima cantidad de registros en un nodo para hacer el split
-                        "minbucket"=  300,     #minima cantidad de registros en una hoja
-                        "maxdepth"=     6 )    #profundidad máxima del arbol
+param_basicos  <- list( "cp"=          -0.8,  #complejidad minima
+                        "minsplit"=   2179,     #minima cantidad de registros en un nodo para hacer el split
+                        "minbucket"=  969,     #minima cantidad de registros en una hoja
+                        "maxdepth"=     20 )    #profundidad máxima del arbol
 
 
 #Aqui se debe poner la carpeta de SU computadora local
@@ -58,5 +58,5 @@ dir.create( "./labo/exp/", showWarnings = FALSE  )
 dir.create( "./labo/exp/KA2022/", showWarnings = FALSE  )
 
 fwrite( entrega, 
-        file= "./labo/exp/KA2022/nd_003.csv", 
+        file= "./labo/exp/KA2022/nd_004.csv", 
         sep= "," )
