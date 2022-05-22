@@ -8,16 +8,20 @@ require("rpart.plot")
 
 #Aqui debe cambiar los parametros por los que desea probar
 
-param_basicos  <- list( "cp"=          -0.4,  #complejidad minima
-                        "minsplit"=   800,     #minima cantidad de registros en un nodo para hacer el split
-                        "minbucket"=  300,     #minima cantidad de registros en una hoja
+
+param_basicos  <- list( "cp"=          -0.1,  #complejidad minima
+                        "minsplit"=   900,     #minima cantidad de registros en un nodo para hacer el split
+                        "minbucket"=  350,     #minima cantidad de registros en una hoja
                         "maxdepth"=     6 )    #profundidad máxima del arbol
 
 
 #Aqui se debe poner la carpeta de SU computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")  #Establezco el Working Directory
 
-setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
+#seteo dos tipos de drive porque depende de la compu donde este
+#setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\")   
+
 
 #cargo los datos de 202011 que es donde voy a ENTRENAR el modelo
 dtrain  <- fread("./datasets/paquete_premium_202011.csv")
@@ -55,8 +59,8 @@ entrega  <- dapply[   , list(numero_de_cliente, Predicted) ] #genero la salida
 #genero el archivo para Kaggle
 #creo la carpeta donde va el experimento
 dir.create( "./labo/exp/", showWarnings = FALSE  )
-dir.create( "./labo/exp/KA2022/", showWarnings = FALSE  )
+dir.create( "./labo/exp/KA2022_nd/", showWarnings = FALSE  )
 
 fwrite( entrega, 
-        file= "./labo/exp/KA2022/nd_003.csv", 
+        file= "./labo/exp/KA2022_nd/nd_rpart001.csv", 
         sep= "," )

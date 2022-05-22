@@ -1,0 +1,2 @@
+max_depth	min_split	vmin_bucket	ganancia_promedio
+6	350	900	9658889
