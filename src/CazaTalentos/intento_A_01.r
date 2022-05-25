@@ -22,7 +22,8 @@ GLOBAL_tiros_total  <- 0
 #a cada jugador se le pone un numero de 1 a 100 en la espalda
 #debajo de ese numero esta el indice_de_enceste  que NO puede ser visto por el cazatalentos
 gimnasio_init  <- function() 
-{
+{ 
+  
   GLOBAL_jugadores  <<-  sample( c( (501:599 ) / 1000 , 0.7 ) )
   GLOBAL_tiros_total  <<- 0
 }
