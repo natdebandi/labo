@@ -141,7 +141,8 @@ EstimarGanancia  <- function( x )
 #Aqui empieza el programa
 
 #setwd( "D:\\gdrive\\ITBA2022A\\" )
-setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
+#setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
 
 #cargo el dataset
 dataset  <- fread("./labo/exp/FE4020/paquete_premium_202011_ext.csv")   #donde entreno
@@ -152,10 +153,11 @@ dataset  <- fread("./labo/exp/FE4020/paquete_premium_202011_ext.csv")   #donde e
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/FE4020/", showWarnings = FALSE )
 #setwd("D:\\gdrive\\ITBA2022A\\labo\\exp\\FE4020\\")   #Establezco el Working Directory DEL EXPERIMENTO
-setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\exp\\FE4020\\")   
+#setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\exp\\FE4020\\")   
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\exp\\FE4020\\") 
 
-archivo_log  <- "FE4020_1.txt"
-archivo_BO   <- "FE4020_1.RDATA"
+archivo_log  <- "FE4020_2.txt"
+archivo_BO   <- "FE4020_2.RDATA"
 
 #leo si ya existe el log, para retomar en caso que se se corte el programa
 GLOBAL_iteracion  <- 0

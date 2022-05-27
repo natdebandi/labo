@@ -14,9 +14,9 @@ require("randomForest")  #solo se usa para imputar nulos
 
 #Aqui se debe poner la carpeta de la computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
-setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
+#setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\")   
 
-#setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
 
 #cargo los datos donde entreno
 dtrain  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -32,7 +32,7 @@ dapply  <- na.roughfix( dapply )  #tambien imputo los nulos en los datos donde v
 
 #genero el modelo de Random Forest con la libreria ranger
 #notar como la suma de muchos arboles contrarresta el efecto de min.node.size=1
-param  <- list( "num.trees"=       121517,  #cantidad de arboles
+param  <- list( "num.trees"=      1244,  #cantidad de arboles
                 "mtry"=             8,  #cantidad de variables que evalua para hacer un split  sqrt(ncol(dtrain))
                 "min.node.size"=  466,  #tamaño minimo de las hojas
                 "max.depth"=        18   # 0 significa profundidad infinita
@@ -68,7 +68,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2411/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2411/KA_411_004.csv"
+archivo_salida  <- "./labo/exp/KA2411/KA_411_00_opt.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 

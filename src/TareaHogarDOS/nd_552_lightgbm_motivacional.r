@@ -26,7 +26,7 @@ setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\")
 
 
 #cargo el dataset donde voy a entrenar
-dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
+dataset  <- fread("./labo/exp/FE4020/paquete_premium_202011_ext.csv", stringsAsFactors= TRUE)
 
 
 #paso la clase a binaria que tome valores {0,1}  enteros
@@ -58,7 +58,7 @@ modelo  <- lgb.train( data= dtrain,
                     )
 
 #aplico el modelo a los datos sin clase
-dapply  <- fread("./datasets/paquete_premium_202101.csv")
+dapply  <- fread("./labo/exp/FE4020/paquete_premium_202101_ext.csv")
 
 #aplico el modelo a los datos nuevos
 prediccion  <- predict( modelo, 
@@ -76,7 +76,7 @@ dir.create( "./labo/exp/",  showWarnings = FALSE )
 dir.create( "./labo/exp/KA5520/", showWarnings = FALSE )
 setwd( "./labo/exp/KA5520/" )
 
-archivo_salida  <- "KA_552_002.csv"
+archivo_salida  <- "KA_552_003.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
