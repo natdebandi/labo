@@ -1,4 +1,4 @@
-# XGBoost  sabor HISTOGRAMA
+# XGBoost  sabor original ,  cambiando algunos de los parametros
 
 #limpio la memoria
 rm( list=ls() )  #remove all objects
@@ -10,6 +10,7 @@ require("xgboost")
 #Aqui se debe poner la carpeta de la computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
 setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
+
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -29,14 +30,12 @@ dtrain  <- xgb.DMatrix( data= data.matrix(  dataset[ , campos_buenos, with=FALSE
 #genero el modelo con los parametros por default
 modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
-                                   tree_method=     "hist",
-                                   grow_policy=     "lossguide",
-                                   max_leaves=          704,
-                                   min_child_weight=    9,
-                                   eta=                 0.010,
-                                   colsample_bytree=    0.521
+                                   max_depth=           2,
+                                   min_child_weight=    4,
+                                   eta=                 0.274,
+                                   colsample_bytree=    1.0
                                    ),
-                      nrounds= 253
+                      nrounds= 121
                     )
 
 
@@ -51,11 +50,11 @@ prediccion  <- predict( modelo,
 
 #Genero la entrega para Kaggle
 entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
-                                 "Predicted"= as.integer( prediccion > 1/60)  ) ) #genero la salida
+                                 "Predicted"= as.integer( prediccion > 1/60 ) )  ) #genero la salida
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
-dir.create( "./labo/exp/KA5710/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA5710/KA_571_exp005.csv"
+dir.create( "./labo/exp/KA5610/", showWarnings = FALSE )
+archivo_salida  <- "./labo/exp/KA5610/KA_561_exp004b.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 

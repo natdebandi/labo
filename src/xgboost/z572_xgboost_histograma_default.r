@@ -11,7 +11,7 @@ require("rlist")
 require("xgboost")
 
 
-ksemilla_azar  <- 102191  #Aqui poner la propia semilla
+ksemilla_azar  <- 52553  #Aqui poner la propia semilla
 
 #------------------------------------------------------------------------------
 #graba a un archivo los componentes de lista
@@ -119,7 +119,8 @@ EstimarGanancia_xgboost  <- function( x )
 #Aqui empieza el programa
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
+#setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
 
 #cargo el dataset donde voy a entrenar el modelo
 dataset  <- fread("./datasets/paquete_premium_202011.csv")
@@ -128,11 +129,11 @@ dataset  <- fread("./datasets/paquete_premium_202011.csv")
 # HT  representa  Hiperparameter Tuning
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/HT5720/", showWarnings = FALSE )
-setwd("D:\\gdrive\\ITBA2022A\\labo\\exp\\HT5720\\")   #Establezco el Working Directory DEL EXPERIMENTO
-
+#("D:\\gdrive\\ITBA2022A\\labo\\exp\\HT5720\\")   #Establezco el Working Directory DEL EXPERIMENTO
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\labo\\exp\\HT5720\\") 
 
 #en estos archivos quedan los resultados
-klog        <- "HT572.txt"
+klog        <- "HT572_exp007.txt"
 
 
 GLOBAL_iteracion  <- 0   #inicializo la variable global
