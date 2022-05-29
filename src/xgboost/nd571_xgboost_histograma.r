@@ -31,13 +31,13 @@ modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
                                    tree_method=     "hist",
                                    grow_policy=     "lossguide",
-                                   max_leaves=          704,
-                                   min_child_weight=    9,
-                                   eta=                 0.010,
-                                   colsample_bytree=    0.521
-                                   ),
-                      nrounds= 253
-                    )
+                                   max_leaves=         20,
+                                   min_child_weight=    1,
+                                   eta=                 0.3,
+                                   colsample_bytree=    1
+                      ),
+                      nrounds= 34
+)
 
 
 
@@ -55,7 +55,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA5710/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA5710/KA_571_exp005.csv"
+archivo_salida  <- "./labo/exp/KA5710/KA_571_exp010b.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
