@@ -9,7 +9,10 @@ require("lightgbm")
 
 #Aqui se debe poner la carpeta de la computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
-setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
+
+
+setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\") 
+#setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
 
@@ -35,11 +38,10 @@ modelo  <- lgb.train( data= dtrain,
                                    num_leaves=         874,
                                    feature_fraction=    0.401,
                                    min_data_in_leaf= 3399,
-                                   seed= 52553 )
+                                   max_bin=31,
+                                   seed= 52529 )
                     )
 
-
-0
 
 
 #aplico el modelo a los datos sin clase
@@ -60,7 +62,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2512/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2512/KA_512_exp002.csv"
+archivo_salida  <- "./labo/exp/KA2512/KA_512_exp013.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
@@ -70,7 +72,7 @@ fwrite( entrega,
 
 #ahora imprimo la importancia de variables
 tb_importancia  <-  as.data.table( lgb.importance(modelo) ) 
-archivo_importancia  <- "./labo/exp/KA2512/512_importancia_exp002.txt"
+archivo_importancia  <- "./labo/exp/KA2512/512_importancia_exp013.txt"
 
 fwrite( tb_importancia, 
         file= archivo_importancia, 

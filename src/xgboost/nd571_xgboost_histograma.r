@@ -9,7 +9,7 @@ require("xgboost")
 
 #Aqui se debe poner la carpeta de la computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
-setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
+setwd("C:\\Users\\Natal\\Documents\\Mineriadatos\\") 
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -31,13 +31,21 @@ modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
                                    tree_method=     "hist",
                                    grow_policy=     "lossguide",
-                                   max_leaves=         20,
-                                   min_child_weight=    1,
+                                   max_leaves=         704,
+                                   min_child_weight=    9,
                                    eta=                 0.3,
-                                   colsample_bytree=    1
+                                   colsample_bytree=    0.521
                       ),
-                      nrounds= 34
+                      nrounds= 253
 )
+# eta	0.010061668
+# colsample_bytree	0.521303545
+# min_child_weight	9
+# max_leaves	704
+# prob_corte	0.013735391
+# nrounds	253
+# ganancia	13676000
+# iteracion	35"
 
 
 
@@ -55,7 +63,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA5710/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA5710/KA_571_exp010b.csv"
+archivo_salida  <- "./labo/exp/KA5710/KA_571_exp014_5.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
