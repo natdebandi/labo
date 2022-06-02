@@ -28,7 +28,7 @@ hs <- makeParamSet(
          makeIntegerParam("min_data_in_leaf", lower=  0    , upper= 8000),
          makeIntegerParam("num_leaves",       lower= 16L   , upper= 1024L),
          makeNumericParam("lambda_l1",        lower=  0    , upper=   100),
-         makeNumericParam("lambda_l2",        lower=  0    , upper=   100)
+         makeNumericParam("lambda_l2",        lower=  0    , upper=   100),
          makeNumericParam("prob_corte",       lower= 1/120 , upper=  1/20)  #esto sera visto en clase en gran detalle
         )
 

@@ -31,11 +31,15 @@ dtrain  <- lgb.Dataset( data= data.matrix(  dataset[ , campos_buenos, with=FALSE
 #genero el modelo con los parametros por default
 modelo  <- lgb.train( data= dtrain,
                       param= list( objective=        "binary",
-                                   num_iterations=     50,
-                                   num_leaves=         64,
-                                   feature_fraction=    0.5,
-                                   min_data_in_leaf= 3000,
-                                   seed= 4 )
+                                   num_iterations=     173,
+                                   num_leaves=         688,
+                                   feature_fraction=    0.339,
+                                   min_data_in_leaf= 3282,
+                                   lambda_l1=0.024930778,
+                                   lambda_l2=10.69757026,
+                                   learning_rate=0.012136381,
+                                   feature_fraction=0.339018917,
+                                   seed= 52511 )
                     )
 
 #aplico el modelo a los datos sin clase
@@ -56,7 +60,7 @@ entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_clien
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA2512/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA2512/KA_512_001.csv"
+archivo_salida  <- "./labo/exp/KA2512/KA_512_exp015.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 
