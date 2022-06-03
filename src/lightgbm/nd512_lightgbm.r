@@ -42,7 +42,7 @@ modelo  <- lgb.train( data= dtrain,
                                    lambda_l1=0.0035,
                                    lambda_l2=88.68,
                                    learning_rate=0.049,
-                                   seed= 52517 )
+                                   seed= 565273 )
                     )
 # 
 # learning_rate	0.049618226
