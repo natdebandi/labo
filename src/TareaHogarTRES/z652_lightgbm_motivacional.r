@@ -117,6 +117,9 @@ tb_entrega[  , prob := prediccion ]
 #ordeno por probabilidad descendente
 setorder( tb_entrega, -prob )
 
+fwrite( tb_entrega[ , list(numero_de_cliente, Predicted)], 
+        file= paste0( "KA_652_completo", envios, ".csv" ),
+        sep= "," )
 
 #genero archivos con los  "envios" mejores
 #deben subirse "inteligentemente" a Kaggle para no malgastar submits

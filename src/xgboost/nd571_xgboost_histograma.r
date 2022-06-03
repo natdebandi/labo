@@ -9,7 +9,9 @@ require("xgboost")
 
 #Aqui se debe poner la carpeta de la computadora local
 #setwd("D:\\gdrive\\ITBA2022A\\")   #Establezco el Working Directory
-setwd("C:\\Users\\Natal\\Documents\\Mineriadatos\\") 
+
+
+setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\") 
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/paquete_premium_202011.csv", stringsAsFactors= TRUE)
@@ -31,13 +33,24 @@ modelo  <- xgb.train( data= dtrain,
                       param= list( objective=       "binary:logistic",
                                    tree_method=     "hist",
                                    grow_policy=     "lossguide",
+                                   base_score= mean( getinfo(dtrain, "label")),
+                                   gamma = 0.0,
+                                   alpha = 0.0,
+                                   lambda = 0.0,
+                                   subsample = 1.0,
+                                   max_bin = 256,
+                                   max_depth = 0, #MUY IMPORTANTE, el default es 6
+                                   scale_pos_weight = 1.0,
                                    max_leaves=         704,
                                    min_child_weight=    9,
-                                   eta=                 0.3,
+                                   eta=                 0.010,
                                    colsample_bytree=    0.521
                       ),
                       nrounds= 253
 )
+
+
+
 # eta	0.010061668
 # colsample_bytree	0.521303545
 # min_child_weight	9
@@ -45,7 +58,8 @@ modelo  <- xgb.train( data= dtrain,
 # prob_corte	0.013735391
 # nrounds	253
 # ganancia	13676000
-# iteracion	35"
+# iteracion	35
+
 
 
 
@@ -59,11 +73,11 @@ prediccion  <- predict( modelo,
 
 #Genero la entrega para Kaggle
 entrega  <- as.data.table( list( "numero_de_cliente"= dapply[  , numero_de_cliente],
-                                 "Predicted"= as.integer( prediccion > 1/60)  ) ) #genero la salida
+                                 "Predicted"= as.integer( prediccion > 0.013)  ) ) #genero la salida
 
 dir.create( "./labo/exp/",  showWarnings = FALSE ) 
 dir.create( "./labo/exp/KA5710/", showWarnings = FALSE )
-archivo_salida  <- "./labo/exp/KA5710/KA_571_exp014_5.csv"
+archivo_salida  <- "./labo/exp/KA5710/KA_571_exp016.csv"
 
 #genero el archivo para Kaggle
 fwrite( entrega, 

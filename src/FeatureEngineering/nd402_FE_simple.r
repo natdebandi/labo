@@ -93,6 +93,15 @@ EnriquecerDataset  <- function( dataset , arch_destino )
   ##invento algunos campos mas
   dataset[ , promedio_mcomisiones  := mcomisiones/cliente_antiguedad ]
   
+  
+  dataset[ , nd_saldopesos_n :=  mv_msaldopesos/sum(mv_msaldopesos) ]
+  
+  print("saldo")
+  print(  dataset[ , mv_msaldopesos])
+    print("normalizado")
+    print(  dataset[ , nd_saldopesos_n])
+
+  
   #valvula de seguridad para evitar valores infinitos
   #paso los infinitos a NULOS
   infinitos      <- lapply( names(dataset),
@@ -150,6 +159,6 @@ dir.create( "./labo/exp/FE4020/", showWarnings = FALSE )
 
 #setwd("C:\\Users\\natal\\Documents\\Mineriadatos\\labo\\exp\\FE4020\\")   
 setwd("C:\\Users\\Natilux\\Documents\\_Mineriadatos\\labo\\exp\\FE4020\\")
-EnriquecerDataset( dataset1, "paquete_premium_202011_ext.csv" )
-EnriquecerDataset( dataset2, "paquete_premium_202101_ext.csv" )
+EnriquecerDataset( dataset1, "paquete_premium_202011_ext2.csv" )
+EnriquecerDataset( dataset2, "paquete_premium_202101_ext2.csv" )
 
