@@ -5,7 +5,7 @@ googlecloud:
 
 
 experiment:
-  script: "src/completo/z912_FE_desborde.r"
+  script: "src/completo/nd912_FE_desborde.r"
   restart: FALSE
   name: "exp"
   requires: [ "DT0001" ]
@@ -17,7 +17,7 @@ param:
   corregir: TRUE    #se se corrige los campos/foto_mes  MALOS
   variablesdrift: [] #variables que se eliminan porque estan mal en el futuro
   
-  variablesmanuales: FALSE
+  variablesmanuales: TRUE  #ND: UTILIZO variables nuevas
 
   acumulavars: FALSE   #a lo nuevo lo va aplicando
 
@@ -27,12 +27,25 @@ param:
     tendencia: TRUE
     minimo:    FALSE
     maximo:    FALSE
-    promedio:  TRUE
+    promedio:  FALSE
     ratioavg:  FALSE
     ratiomax:  FALSE
 
-
+#creo una nueva variable para poder tener tendencias a 6 meses y a 12
+#se cambia tambien en el script
+  tendenciaYmuchomasDos: 
+    correr: TRUE #Great power comes with great responsability
+    ventana: 12
+    tendencia: TRUE
+    minimo:    FALSE
+    maximo:    FALSE
+    promedio:  FALSE
+    ratioavg:  FALSE
+    ratiomax:  FALSE
   #lags y sus deltas , 6 posiciones
+  
+  ### si se quiere usar el lag 2 se cambia a true la posicion 2
+  
   lag:   [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
   delta: [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
   canaritosratio: [ 0, 0, 0, 0, 0, 0 ]

@@ -581,6 +581,23 @@ if( PARAM$tendenciaYmuchomas$correr )
 
 }
 
+##ND: AGREGUE ESTO
+if( PARAM$tendenciaYmuchomasDos$correr ) 
+{
+  p  <- PARAM$tendenciaYmuchomas
+  
+  TendenciaYmuchomas( dataset, 
+                      cols= cols_lagueables,
+                      ventana=   p$ventana,
+                      tendencia= p$tendencia,
+                      minimo=    p$minimo,
+                      maximo=    p$maximo,
+                      promedio=  p$promedio,
+                      ratioavg=  p$ratioavg,
+                      ratiomax=  p$ratiomax
+  )
+  
+}
 
 for( i in 1:length( PARAM$lag ) )
 {
