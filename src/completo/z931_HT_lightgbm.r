@@ -27,6 +27,7 @@ parametrizar  <- function( lparam )
 
   for( param  in  names( lparam ) )
   {
+
     if( length( lparam[[ param ]] ) > 1 )
     {
       desde  <- as.numeric( lparam[[ param ]][[1]]  )
@@ -94,7 +95,7 @@ EstimarGanancia_lightgbm  <- function( x )
 
   param_completo  <- c( param_fijos,  x )
 
-  param_completo$num_iterations         <- 999999  #un numero muy grande
+  param_completo$num_iterations         <- ifelse( param_fijos$boosting== "dart", 999, 99999 )  #un numero muy grande
   param_completo$early_stopping_rounds  <- as.integer(200 + 4/param_completo$learning_rate )
 
   vprob_optima  <<- c()
@@ -187,7 +188,7 @@ EstimarGanancia_lightgbmCV  <- function( x )
 
   param_completo  <- c( param_fijos,  x )
 
-  param_completo$num_iterations         <- 999999  #un numero muy grande
+  param_completo$num_iterations         <- ifelse( param_fijos$boosting== "dart", 999, 99999 )
   param_completo$early_stopping_rounds  <- as.integer(200 + 4/param_completo$learning_rate )
 
   vprob_optima  <<- c()
@@ -327,7 +328,6 @@ gc()
 #Prepara todo la la Bayesian Optimization -------------------------------------
 hiperparametros <- PARAM[[ PARAM$algoritmo ]]
 apertura  <- parametrizar( hiperparametros )
-
 param_fijos  <-  apertura$param_fijos
 
 
