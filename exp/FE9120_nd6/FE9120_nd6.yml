@@ -27,9 +27,9 @@ param:
     tendencia: TRUE
     minimo:    FALSE
     maximo:    FALSE
-    promedio:  TRUE
-    ratioavg:  TRUE
-    ratiomax:  TRUE
+    promedio:  FALSE
+    ratioavg:  FALSE
+    ratiomax:  FALSE
 
 
   #lags y sus deltas , 6 posiciones
