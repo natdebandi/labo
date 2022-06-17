@@ -5,8 +5,8 @@ googlecloud:
 
 
 experiment:
-  script: "src/completo/z912_FE_desborde.r"
-  restart: FALSE
+  script: "src/completo/nd912_FE_desborde.r"
+  restart: TRUE
   name: "exp"
   requires: [ "DT0001" ]
 
@@ -28,14 +28,14 @@ param:
     minimo:    FALSE
     maximo:    FALSE
     promedio:  TRUE
-    ratioavg:  TRUE
-    ratiomax:  TRUE
+    ratioavg:  FALSE
+    ratiomax:  FALSE
 
 
   #lags y sus deltas , 6 posiciones
-  lag:   [ TRUE, TRUE, TRUE, FALSE, FALSE, FALSE ]
-  delta: [ TRUE, TRUE, TRUE, FALSE, FALSE, FALSE ]
-  canaritosratio: [ 0.3, 0.1, 0.2, 0, 0, 0 ]
+  lag:   [ FALSE, TRUE, TRUE, FALSE, FALSE, FALSE ]
+  delta: [ FALSE, TRUE, TRUE, FALSE, FALSE, FALSE ]
+  canaritosratio: [ 0.3, 0.1, 0.0, 0, 0, 0 ]
 
   tony:  FALSE
 
