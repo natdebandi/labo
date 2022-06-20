@@ -29,12 +29,12 @@ param:
     maximo:    FALSE
     promedio:  TRUE
     ratioavg:  FALSE
-    ratiomax:  FALSE
+    ratiomax:  TRUE
 
 
   #lags y sus deltas , 6 posiciones
-  lag:   [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
-  delta: [ TRUE, FALSE, FALSE, FALSE, FALSE, FALSE ]
+  lag:   [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
+  delta: [ TRUE, TRUE, FALSE, FALSE, FALSE, FALSE ]
   canaritosratio: [ 0, 0, 0, 0, 0, 0 ]
 
   tony:  FALSE
